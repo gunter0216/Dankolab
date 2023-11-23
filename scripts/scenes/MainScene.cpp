@@ -167,7 +167,7 @@ int MainScene::getRowsFromField() {
         } catch (...) {
             rows = 0;
         }
-        if (rows == 0) {
+        if (rows <= 0) {
             rows = DEFAULT_COUNT_ROWS;
             _textFieldHeight->setText(std::to_string(rows));
         } else if (rows > MAX_COUNT_ROWS) {
@@ -187,7 +187,7 @@ int MainScene::getColsFromField() {
         } catch (...) {
             cols = 0;
         }
-        if (cols == 0) {
+        if (cols <= 0) {
             cols = DEFAULT_COUNT_COLS;
             _textFieldWidth->setText(std::to_string(cols));
         } else if (cols > MAX_COUNT_COLS) {
@@ -207,7 +207,7 @@ int MainScene::getColorsFromField() {
         } catch (...) {
             colors = 0;
         }
-        if (colors == 0) {
+        if (colors <= 0) {
             colors = DEFAULT_COUNT_COLORS;
             _textFieldColors->setText(std::to_string(colors));
         } else if (colors > MAX_COUNT_COLORS) {
