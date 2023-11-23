@@ -1,5 +1,5 @@
-debug*
+debug
 .vscode
 .vs
-Release.*
-Debug.*
+Release.win32
+Debug.win32
