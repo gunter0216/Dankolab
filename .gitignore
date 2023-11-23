@@ -1,4 +1,4 @@
-debug
+bin/debug
 .vscode
 .vs
 Release.win32
