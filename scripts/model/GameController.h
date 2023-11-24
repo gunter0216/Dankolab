@@ -4,14 +4,36 @@
 #include <iostream>
 #include <array>
 #include <vector>
+#include <unordered_set>
 
 #include "audio/include/SimpleAudioEngine.h"
 using namespace CocosDenshion;
 
 USING_NS_CC;
 
+struct Vec2i {
+	int x;
+	int y;
+
+	bool operator==(const Vec2i& other) const {
+		return x == other.x && y == other.y;
+	}
+};
+
+template<>
+struct std::hash<Vec2i>
+{
+	std::size_t operator()(const Vec2i& v) const noexcept
+	{
+		std::size_t h1 = std::hash<int>{}(v.x);
+		std::size_t h2 = std::hash<int>{}(v.y);
+		return h1 ^ (h2 << 1);
+	}
+};
+
 struct Cell {
 	int colorId;
+	Vec2i pos;
 	MenuItemSprite* node;
 };
 
@@ -34,9 +56,9 @@ public:
 	void checkGameFinish();
 
 private:
-	std::vector<std::vector<Cell>> map;
-	std::vector<Color3B> colors;
-	std::vector<Color3B> defaultColors {
+	std::vector<std::vector<Cell>> _map;
+	std::vector<Color3B> _colors;
+	std::vector<Color3B> _defaultColors {
 		Color3B(255, 0, 0),
 		Color3B(0, 255, 0),
 		Color3B(0, 0, 255),
@@ -59,4 +81,6 @@ private:
 	int _playerScore = 0;
 	// true if game is finish
 	bool _gameIsFinish = false;
+
+	void getCellsWithSameColors(std::unordered_set<Vec2i>& cells, const Vec2i& cellPos);
 };
